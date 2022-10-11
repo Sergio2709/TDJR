@@ -1,0 +1,172 @@
+<template>
+  <section id="RegistroFamiliar">
+    <h3>Registro familiar</h3>
+    <form v-on:submit.prevent="processSignUpFamiliar">
+      <h4>
+        <br>
+        <label> Nombres </label>
+        <input type="text" v-model="familiar.nombres" placeholder="Nombres" /><br />
+        <br>
+        <label> Apellidos </label>
+        <input type="text" v-model="familiar.apellidos" placeholder="Apellidos" /><br />
+        <br>
+        <label> Tipo de documento </label>
+        <select type="tipo_documento" v-model="familiar.tipo_documento">  
+          <option value="">--Elige una opcion--</option>
+          <option value="CC">Cedula de ciudadania</option>
+          <option value="CE">Cedula de extrangeria</option>
+          <option value="TI">Tarjeta de identidad</option>
+        </select> <br />
+        <br>
+        <label> Numero de documento </label>
+        <input type="text" v-model="familiar.numero_documento" placeholder="Numero de documento" />        <br />
+        <br>
+        <label> Género </label>
+        <select type="text" v-model="familiar.genero" placeholder="Genero">  
+          <option value="">--Elige una opción--</option>
+          <option value="M">Masculino</option>
+          <option value="F">Femenino</option>
+          <option value="O">Otro</option>
+        </select> <br />
+        <br>
+        <label>Correo electronico </label>
+        <input type="text" v-model="familiar.correo" placeholder="Correo Electrónico"/><br />
+        <br>
+        <label> Telefono </label>
+        <input type="text" v-model="familiar.telefono" placeholder="Télefono" /> <br />
+        <br>
+        <label> Direccion </label>
+        <input type="text" v-model="familiar.direccion" placeholder="Dirección"/> <br />
+        <br>
+        <label> Ciudad </label>
+        <input type="text" v-model="familiar.ciudad" placeholder="Ciudad"/> <br />
+        <br>
+        <label> Fecha de nacimiento </label>
+        <input type="date" v-model="familiar.fecha_nacimiento" placeholder="fecha_nacimiento"/> <br />
+        <br>
+        <label> Usuario </label>
+        <input type="text" v-model="familiar.username" placeholder="Username" /> <br />
+        <br>
+        <label> Contraseña </label>
+        <input type="text" v-model="familiar.password" placeholder="password" /><br />
+        <br>
+        <label> Parentesco </label>
+        <input type="text" v-model="familiar.parentesco" placeholder="Parentesco"/> <br />
+      </h4>
+      <br />
+      <input class="registrar" type="submit" value="Registrar" />
+    </form>
+  </section>
+</template>
+
+<style scoped>
+#RegistroFamiliar {
+  background: rgb(181, 174, 151);
+  margin: 1%;
+  text-align: center;
+  float: right;
+  width: 30%;
+}
+
+#RegistroFamiliar form input {
+  float: right;
+  margin-right: 10px;
+  border-bottom-color: black;
+  background-color: rgb(232, 235, 206);
+}
+
+#RegistroFamiliar form select {
+  float: right;
+  margin-right: 10px;
+  border-bottom-color: black;
+  background-color: rgb(232, 235, 206);
+}
+
+#RegistroFamiliar form label {
+  float: left;
+  margin-left: 10px;
+}
+
+#RegistroFamiliar li {
+  float: left;
+  list-style: none;
+  margin: 15px;
+}
+
+#RegistroFamiliar {
+  background-color: white;
+  border: black 1px solid;
+  position: relative;
+  right: 80px;
+  top: -600px;
+}
+
+#RegistroFamiliar .registrar {
+  background-color: rgb(30, 120, 90);
+  border-bottom-color: black;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+#RegistroFamiliar .registrar:hover {
+  background-color: rgb(16, 94, 68);
+}
+</style>
+
+<script>
+import axios from "axios";
+import Swal from "sweetalert2";
+export default {
+  name: "Familiar",
+  data: function () {
+    return {
+      familiar: {
+        nombres: "",
+        apellidos: "",
+        tipo_documento: {},
+        numero_documento: "",
+        genero: {},
+        correo: "",
+        telefono: "",
+        direccion: "",
+        ciudad: "",
+        fecha_nacimiento: "",
+        username: "",
+        password: "",
+        parentesco: ""
+      },
+    };
+  },
+  methods: {
+    processSignUpFamiliar: function () {
+      axios
+        .post("https://healthtdjrfinal.herokuapp.com/familiar/", this.familiar, { headers: {} })
+        .then((result) => {
+          let dataSignUp = {
+            username: this.familiar.username,
+            token_access: result.data.access,
+            token_refresh: result.data.refresh,
+          };
+          this.$emit("completedSignUp", dataSignUp); //completesingout
+          this.familiar.apellidos = ""
+          
+          Swal.fire(
+            "Datos registardos Corectamente!",
+            "You clicked the button!",
+            "success"
+          );
+        })
+        .catch((error) => {
+          console.log(error);
+          Swal.fire({
+            title: "Error!",
+            text: "Datos no registrados",
+            icon: "error",
+            confirmButtonText: "Intentar nuevamente",
+          });
+        });
+    },
+  },
+};
+</script>
