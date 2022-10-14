@@ -1,5 +1,6 @@
 <template>
   <section id="RegistroFamiliar">
+    <a id="atras" href="#/Login/">atras</a>
     <h3>Registro familiar</h3>
     <form v-on:submit.prevent="processSignUpFamiliar">
       <h4>
@@ -11,7 +12,7 @@
         <input type="text" v-model="familiar.apellidos" placeholder="Apellidos" /><br />
         <br>
         <label> Tipo de documento </label>
-        <select type="tipo_documento" v-model="familiar.tipo_documento">  
+        <select type="text" v-model="familiar.tipo_documento" placeholder="Tipo de documento">  
           <option value="">--Elige una opcion--</option>
           <option value="CC">Cedula de ciudadania</option>
           <option value="CE">Cedula de extrangeria</option>
@@ -54,7 +55,7 @@
         <input type="text" v-model="familiar.parentesco" placeholder="Parentesco"/> <br />
       </h4>
       <br />
-      <input class="registrar" type="submit" value="Registrar" />
+    <input class="registrar" type="submit" value="Registrar" />
     </form>
   </section>
 </template>
@@ -101,16 +102,37 @@
   top: -600px;
 }
 
-#RegistroFamiliar .registrar {
-  background-color: rgb(30, 120, 90);
+#RegistroFamiliar form .registrar {
+  background-color: rgb(181, 174, 151);
   border-bottom-color: black;
   font-weight: bold;
   cursor: pointer;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  padding: 4px 25px;
+  border: 4px black;
+  float: right;
+  margin-right: 10px;
 }
 
-#RegistroFamiliar .registrar:hover {
-  background-color: rgb(16, 94, 68);
+#atras {
+  background-color: rgb(181, 174, 151);
+  border-bottom-color: black;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 20px;
+  padding: 4px 25px;
+  border: 4px black;
+  float: left;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+
+#RegistroFamiliar form .registrar:hover {
+  background: rgb(195, 70, 8);
+}
+#atras:hover {
+  background-color: rgb(195, 70, 8);
 }
 </style>
 
@@ -150,7 +172,7 @@ export default {
           };
           this.$emit("completedSignUp", dataSignUp); //completesingout
           this.familiar.apellidos = ""
-          
+
           Swal.fire(
             "Datos registardos Corectamente!",
             "You clicked the button!",
@@ -169,4 +191,5 @@ export default {
     },
   },
 };
+
 </script>

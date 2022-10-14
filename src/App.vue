@@ -78,8 +78,8 @@
 
   #inicio{
     padding: 4px 25px;
-    background: rgb(19, 143, 247);
-    border: 1px solid #1161B0;
+    background: rgb(181, 174, 151);
+    border: 4px  rgb(92, 89, 88);
     color: #fff;
     border-radius: 4px;
     text-decoration:none;
@@ -89,8 +89,8 @@
 
   #logina{
     padding: 4px 25px;
-    background: rgb(92, 89, 88);
-    border: 1px solid #1161B0;
+    background:rgb(181, 174, 151);
+    border: 4px  rgb(92, 89, 88);
     color: #fff;
     border-radius: 4px;
     text-decoration:none;
@@ -102,7 +102,7 @@
   }
 
   #inicio:hover {
-    background:  #0b8256;
+    background: rgb(195, 70, 8);
 
 
   }

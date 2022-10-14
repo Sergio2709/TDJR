@@ -6,7 +6,7 @@
         <form v-on:submit.prevent="processLogInUser">
             <h3>
             <label>Usuario </label>
-            <input type="text" v-model="user.username" placeholder="Username">
+            <input id="usuario" type="text" v-model="user.username" placeholder="Username">
             <br />
             <br>
             <label>Contraseña</label>
@@ -14,7 +14,7 @@
         </h3>
         <br>
         <br>
-        <input id="boton_ingreso" type="submit" value="Ingresar">
+        <input id="boton_ingreso" type="submit" value="Ingresar" onclick='saveUser()'>
         <br>
     </form>
         <h2>Registrarme</h2>
@@ -85,7 +85,7 @@
 
  .links{
     padding: 4px 25px;
-    background:  #0b8256;
+    background: rgb(181, 174, 151);
     border: 1px solid #1161B0;
     color: rgb(23, 19, 19);
     border-radius: 4px;
@@ -105,50 +105,48 @@
 <script>
     import axios from 'axios';
     import Swal from 'sweetalert2'
-        export default {
+    export default {
             name: "Login",
             data: function(){
                 return {
                     user: {
                         username:"",
-                            password:""
-                            }
+                        password:""
                         }
-                    },
+                    }
+                },
                    
     methods: {
-            processLogInUser: function(){
+        processLogInUser: function(){
             axios.post("https://healthtdjrfinal.herokuapp.com/login/",
-        this.user,
-            {headers: {}}
-        )
-        .then((result) => {
-             let dataLogin = {
+            this.user,
+                {headers: {}}
+            )
+            .then((result) => {
+                let dataLogin = {
                     username: this.user.username,
                     token_access: result.data.access,
                     token_refresh: result.data.refresh,
-            }
+                }
             this.$emit('completedLogin', dataLogin) 
-            //aca va el redireccionamiento
-            Swal.fire(
-            'Acceso Correcto!',
-            'You clicked the button!',
-            'success'
-)    
-    })
-    
-    .catch((error) => {
-        if (error.response.status == "401")
-
-        Swal.fire({
-        title: 'Error!',
-        text: 'Datos incorrectos',
-        icon: 'error',
-        confirmButtonText: 'Volver'
-})
-
+                Swal.fire(
+                'Acceso Correcto!',
+                'You clicked the button!',
+                'success'
+                )    
+                
+            })
+            this.$router.push("Inicio")
+            .catch((error) => {
+                if (error.response.status == "401")
+                Swal.fire({
+                title: 'Error!',
+                text: 'Datos incorrectos',
+                icon: 'error',
+                confirmButtonText: 'Volver'
+                })
             });
         }
-        }
     }
+}
 </script>  
