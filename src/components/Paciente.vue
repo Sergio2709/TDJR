@@ -134,6 +134,13 @@
           margin-left: 10px;
           margin-top: 10px;
       }
+
+      #RegistroPaciente form .registrar:hover {
+         background: rgb(195, 70, 8);
+      }
+      #atras:hover {
+         background-color: rgb(195, 70, 8);
+      }
   
   </style>
   
@@ -183,6 +190,7 @@
                   "success"
                   );
               })
+              this.$router.push("Login")
               .catch((error) => {
                   console.log(error);
                       Swal.fire({

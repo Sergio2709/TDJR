@@ -1,7 +1,7 @@
 <template>
     <form id= bienvenida v-on:submit.prevent="seeStartPage">
-        <h2>Bienvenido </h2>
-        <input type="text" v-on:model="familiar.username">
+        <h2>Bienvenido  a la pagina de inicio </h2>
+        <h3> Ya estas registrado como usuario, muy pronto seran habilitadas mas funcionalidades </h3>
             
     </form>
     
@@ -25,43 +25,5 @@
 </style>
 
 <script>
-    import axios from 'axios';
-    import Swal from 'sweetalert2'
-    export default {
-            name: "Inicio",
-            data: function(){
-                return {
-                    familiar: {
-                        username:"",
-                        password:""
-                        }
-                    }
-                },               
-    methods: {
-        seeStartPage: function(){
-            axios.get("https://healthtdjrfinal.herokuapp.com/familiar/",
-            this.familiar,
-                {headers: {}}
-            )
-            .then((result) => {
-                let dataLogin = {
-                    username: this.user.username,
-                    token_access: result.data.access,
-                    token_refresh: result.data.refresh,
-                }
-            this.$emit('completedLogin', dataLogin) 
-            })
-            .catch((error) => {
-                if (error.response.status == "401")
-                Swal.fire({
-                title: 'Error!',
-                text: 'Este usuario no fue autenticado correctamente',
-                icon: 'error',
-                confirmButtonText: 'Volver'
-                })
-            });
-        }
-    }
-}
-
+    
 </script>  

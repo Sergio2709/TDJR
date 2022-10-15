@@ -126,8 +126,6 @@
   margin-left: 10px;
   margin-top: 10px;
 }
-
-
 #RegistroFamiliar form .registrar:hover {
   background: rgb(195, 70, 8);
 }
@@ -171,7 +169,6 @@ export default {
             token_refresh: result.data.refresh,
           };
           this.$emit("completedSignUp", dataSignUp); //completesingout
-          this.familiar.apellidos = ""
 
           Swal.fire(
             "Datos registardos Corectamente!",
@@ -179,6 +176,7 @@ export default {
             "success"
           );
         })
+        this.$router.push("Login")
         .catch((error) => {
           console.log(error);
           Swal.fire({
